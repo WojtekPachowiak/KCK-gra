@@ -159,6 +159,8 @@ if __name__ == "__main__":
     shoot.set_volume(0.05)
     lose.set_volume(0.02)
     click.set_volume(0.05)
+    fuse.set_volume(0.25)
+    explode2.set_volume(0.25)
     pygame.mixer.music.load('audio/tlo.wav')
     pygame.mixer.music.play(-1, 0.0)
     pygame.mixer.music.set_volume(0.75)
@@ -195,10 +197,11 @@ if __name__ == "__main__":
 
 
     def game_outro(exitcode):
-
         outro = True
         game_over_screen = True
+        start_ticks=pygame.time.get_ticks()
         while outro:
+            ms=(pygame.time.get_ticks()-start_ticks)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -207,8 +210,6 @@ if __name__ == "__main__":
                     keys[3]= False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     keys[3]= True
-
-
 
             if exitcode==0:
                 lose.play()
@@ -232,29 +233,47 @@ if __name__ == "__main__":
 
 
             else:
-                pygame.mixer.music.stop()
-                cave1.play()
-                screen.blit(youwin, (0,0))
-                pygame.display.update()
+                if ms == 0:
+                    pygame.mixer.music.stop()
+                    cave1.play()
+                    screen.blit(youwin, (0,0))
+                    pygame.display.flip()
+                    print(ms)
 
-                pygame.time.delay(4000)
-                cave2.play()
-                screen.blit(youwin1, (0,0))
-                pygame.display.update()
 
-                pygame.time.delay(1000)
-                fuse.play()
-                pygame.time.delay(2000)
-                explode2.play()
-                pygame.time.delay(300)
-                screen.fill((0,0,0))
-                pygame.display.update()
-                pygame.time.delay(2000)
-                fallbig.play()
-                pygame.time.delay(1000)
-                outro=False
-                pygame.quit()
-                quit()
+                elif ms == 4000:
+
+                    cave2.play()
+                    screen.blit(youwin1, (0,0))
+                    pygame.display.flip()
+
+
+
+                elif ms == 5000:
+                    fuse.play()
+                    pygame.display.flip()
+
+
+                elif ms == 7000:
+                    explode2.play()
+                    pygame.display.flip()
+
+
+                elif ms == 7300:
+                    screen.fill((0,0,0))
+                    pygame.display.flip()
+
+
+
+                elif ms == 9300:
+                    fallbig.play()
+                    
+
+                elif ms == 10300:
+
+                    outro=False
+                    pygame.quit()
+                    quit()
 
 
 
