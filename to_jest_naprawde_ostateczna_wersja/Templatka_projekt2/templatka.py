@@ -161,6 +161,7 @@ if __name__ == "__main__":
     click.set_volume(0.05)
     fuse.set_volume(0.25)
     explode2.set_volume(0.25)
+    fallbig.set_volume(0.25)
     pygame.mixer.music.load('audio/tlo.wav')
     pygame.mixer.music.play(-1, 0.0)
     pygame.mixer.music.set_volume(0.75)
